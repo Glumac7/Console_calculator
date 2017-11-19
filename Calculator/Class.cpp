@@ -1,7 +1,4 @@
 #include "Class.h"
-#include <iostream>
-#include <string>
-#include <vector>
 
 
 void Class::input(std::string str)
@@ -12,9 +9,6 @@ void Class::input(std::string str)
 	m_Vector_input.push_back(str);
 }
 
-/*std::vector<std::string> splited_string{ getSplit_input(str, ' ') };
-	for (auto n : splited_string) std::cout << n << std::endl;*/
-
 const std::vector<std::string> Class::getSplit_input(std::string new_string, char new_char)
 {
 	std::string buff{ "" };
@@ -22,7 +16,7 @@ const std::vector<std::string> Class::getSplit_input(std::string new_string, cha
 	for (auto n:new_string)
 	{
 		if (n != new_char) buff += n;
-
+		
 		if (n == new_char && buff != "") 
 		{ 
 			m_Vector_splited.push_back(buff); buff = ""; 
@@ -33,14 +27,49 @@ const std::vector<std::string> Class::getSplit_input(std::string new_string, cha
 	return m_Vector_splited;
 }
 
-void Class::calculate()
+double Class::calculate()
 {
-	std::vector<std::string> splited_string{ getSplit_input(m_Vector_input, ' ') };
-	for (auto n : m_Vector_splited) std::cout << n << std::endl;
+	double res = 0;
+	std::vector<double> test;
 
-	switch (m_Vector_splited)
+	std::string str;
+	for (const auto &piece : m_Vector_input) str += piece;
+
+	//std::vector<std::string> splited_string{ getSplit_input(str, ' ') };
+	//for (auto n : m_Vector_splited) std::cout << n << std::endl;
+
+	int i = 1;
+	int	j = 0;
+
+	while (i <= str.length())
 	{
-	default:
-		break;
+		if (str.at(i) == '+')
+		{
+			str = str.at(j);
+			res += std::stod(str);
+		}
+
+		if (str.at(i) == '-')
+		{
+			str = str.at(j);
+			res -= std::stod(str);
+		}
+
+		if (str.at(i) == '*')
+		{
+			str = str.at(j);
+			res *= std::stod(str);
+		}
+
+		if (str.at(i) == '/')
+		{
+			str = str.at(j);
+			res /= std::stod(str);
+		}
+
+		j++;
+		i += 2;
 	}
+
+	return res;
 }
