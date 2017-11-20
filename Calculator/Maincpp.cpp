@@ -12,9 +12,11 @@ int main()
 
 	clas.input(s);
 
-	clas.getSplit_input(s, ' ');
+	clas.getSplit_input(' ');
 
 	clas.calculate();
+
+	clas.output();
 
 	std::cin.get();
 }

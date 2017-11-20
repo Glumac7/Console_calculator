@@ -6,42 +6,38 @@ void Class::input(std::string str)
 	std::cout << "Enter some numbers with signes in between them(+, -, *, /): ";
 	std::getline(std::cin, str);
 
-	m_Vector_input.push_back(str);
+	m_String_input =  str;
 }
 
-const std::vector<std::string> Class::getSplit_input(std::string new_string, char new_char)
+void Class::getSplit_input(char new_char)
 {
-	std::string buff{ "" };
+	std::vector<int> local_vector;
+	std::string str;
 
-	for (auto n:new_string)
+	for (const auto &piece : m_String_input) str += piece;
+
+	local_vector.push_back(std::stoi(str));
+
+	for (int i = 0; m_String_input.size(); i++)
 	{
-		if (n != new_char) buff += n;
-		
-		if (n == new_char && buff != "") 
-		{ 
-			m_Vector_splited.push_back(buff); buff = ""; 
+		if (m_String_input.at(i) == ' ' && (m_String_input.at(i++) == '+' || m_String_input.at(i++) == '-' || m_String_input.at(i++) == '*' || m_String_input.at(i++) == '/'))
+		{
+			m_Vector_char.push_back(i++);
 		}
 	}
-	if (buff != "") m_Vector_splited.push_back(buff);
-
-	return m_Vector_splited;
 }
 
 double Class::calculate()
 {
 	double res = 0;
-	std::vector<double> test;
 
 	std::string str;
-	for (const auto &piece : m_Vector_input) str += piece;
-
-	//std::vector<std::string> splited_string{ getSplit_input(str, ' ') };
-	//for (auto n : m_Vector_splited) std::cout << n << std::endl;
+	for (const auto &piece : m_String_input) str += piece;
 
 	int i = 1;
 	int	j = 0;
 
-	while (i <= str.length())
+	while (i <= m_String_input.size())
 	{
 		if (str.at(i) == '+')
 		{
@@ -72,4 +68,8 @@ double Class::calculate()
 	}
 
 	return res;
+}
+void Class::output()
+{
+	std::cout << "SSS" << calculate();
 }

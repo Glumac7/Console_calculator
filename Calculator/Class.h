@@ -7,10 +7,12 @@
 class Class
 {
 private:
-	std::vector<std::string> m_Vector_input;
-	std::vector<std::string> m_Vector_splited;
+	std::string m_String_input;
+	std::vector<char> m_Vector_char;//for the split
+	std::vector<int> m_Vector_int;//for the split
 public:
-	const std::vector<std::string> Class::getSplit_input(std::string new_string, char new_char);
+	void Class::getSplit_input(char new_char);
 	void input(std::string str);
 	double calculate();
+	void output();
 };
