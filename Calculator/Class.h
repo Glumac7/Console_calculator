@@ -11,7 +11,7 @@ private:
 	std::vector<char> m_Vector_char;//for the split
 	std::vector<int> m_Vector_int;//for the split
 public:
-	void Class::getSplit_input(char new_char);
+	void Class::getSplit_input();
 	void input(std::string str);
 	double calculate();
 	void output();

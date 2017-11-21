@@ -9,30 +9,58 @@ void Class::input(std::string str)
 	m_String_input =  str;
 }
 
-void Class::getSplit_input(char new_char)
+void Class::getSplit_input()
 {
-	std::vector<int> local_vector;
+	int  str_to_int = 0, al, d = 1;
+	bool flag = false;
 	std::string str;
 
-	for (const auto &piece : m_String_input) str += piece;
+	int k = 1, l = 0, dd = 0;
 
-	local_vector.push_back(std::stoi(str));
+	dd = std::stoi(m_String_input);
+	m_Vector_int.push_back(dd);
 
-	for (int i = 0; m_String_input.size(); i++)
-	{
-		if (m_String_input.at(i) == ' ' && (m_String_input.at(i++) == '+' || m_String_input.at(i++) == '-' || m_String_input.at(i++) == '*' || m_String_input.at(i++) == '/'))
-		{
-			m_Vector_char.push_back(i++);
-		}
-	}
+	/*for (int i = 0;i <= m_String_input.size(); i++)
+	  {
+		  std::cout << i;
+		  if (m_String_input.at(i) == ' ')
+		  {
+			  l = i + 1;
+			  if (m_String_input.at(l) == '+' || m_String_input.at(l) == '-' || m_String_input.at(l) == '*' || m_String_input.at(l) == '/')
+			  {
+				  for (int j = (i - 1); j >= 0; j--)
+				  {
+					  if (!flag)
+					  {
+						  flag = true;
+						  str = m_String_input.at(j);
+						  str_to_int = std::stoi(str);
+						  al = str_to_int;
+					  }
+					  else
+					  {
+						  str = m_String_input.at(j);
+						  str_to_int = std::stoi(str);
+						  k = str_to_int;
+						  d *= 10;
+						  k *= d;
+						  al += k;
+
+					  }
+
+
+					  m_Vector_int.push_back(al);
+					  m_Vector_char.push_back(l);
+				  }
+			  }
+		  }
+	}*/
 }
 
 double Class::calculate()
 {
 	double res = 0;
 
-	std::string str;
-	for (const auto &piece : m_String_input) str += piece;
 
 	int i = 1;
 	int	j = 0;

@@ -1,8 +1,5 @@
 #include "Class.h"
-#include <iostream>
-#include <vector>
-#include <string>
-#include <cstdlib>
+
 
 int main()
 {
