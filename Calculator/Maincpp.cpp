@@ -9,7 +9,7 @@ int main()
 
 	clas.input(s);
 
-	clas.getSplit_input(' ');
+	clas.getSplit_input();
 
 	clas.calculate();
 
