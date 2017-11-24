@@ -77,15 +77,16 @@ double Class::calculate()
 	double midel_var4;
 	int vector_int_index = 0;
 
+	midel_var1 = double(m_Vector_int.at(vector_int_index));
+	midel_var2 = double(m_Vector_int.at(vector_int_index + 1));
+
 	for (int i = 0; i < m_Vector_char.size(); i++) //Goes from the first to the last char in a vector(m_Vecotr_char)
 	{
 		
 		switch (m_Vector_char.at(i))
 		{
 		case '+': //If 'm_Vector_char' that is being incremented by 'i' is '+' then...
-			midel_var1 = double(m_Vector_int.at(vector_int_index));
-			midel_var2 = double(m_Vector_int.at(vector_int_index + 1));
-			if (m_Vector_char.at(i+1) == '*' || m_Vector_char.at(i + 1) == '/') //...it checks if the next index is '*' or '/'
+			if (m_Vector_char.at(i + 1) == '*' || m_Vector_char.at(i + 1) == '/') //...it checks if the next index is '*' or '/'
 			{
 				break;
 			}
@@ -98,8 +99,6 @@ double Class::calculate()
 			break;
 
 		case '-'://Same as the '+' but this time it's '-'
-			midel_var1 = double(m_Vector_int.at(vector_int_index));
-			midel_var2 = double(m_Vector_int.at(vector_int_index + 1));
 			if (m_Vector_char.at(i + 1) == '*' || m_Vector_char.at(i + 1) == '/')
 			{
 				break;
@@ -113,17 +112,40 @@ double Class::calculate()
 			break;
 
 		case '*'://If 'm_Vector_char' that is being incremented by 'i' is '*' then...
-			midel_var1 = double(m_Vector_int.at(vector_int_index));
-			midel_var2 = double(m_Vector_int.at(vector_int_index + 1));
-
 			if (i >= 1)//...it checks to see if it's the first char in a program or not
 			{
 				midel_var3 = midel_var1 * midel_var2;//If it is then the 'midel_var3' is the result of a multiplication of an element before and an element after '*'
 				midel_var2 = double(m_Vector_int.at(vector_int_index - 1));
-				if (m_Vector_char.at(i - 1) == '+')//Checks to see what is the caracter before '*'
+
+				for (int j = 0; j < m_Vector_char.size(); j++)
+				{
+					if (m_Vector_char.at(i + (j + 1)) == '*')
+					{
+						midel_var1 = double(m_Vector_int.at(vector_int_index + j));
+						midel_var2 = double(m_Vector_int.at(vector_int_index + (j + 1)));
+
+						midel_var4 = midel_var1 * midel_var2;
+						result += midel_var4;
+					}
+					else if(m_Vector_char.at(i + (j + 1)) == '/')
+					{
+						midel_var1 = double(m_Vector_int.at(vector_int_index + j));
+						midel_var2 = double(m_Vector_int.at(vector_int_index + (j + 1)));
+
+						midel_var4 = midel_var1 / midel_var2;
+						result += midel_var4;
+					}
+					else
+						break;
+				}
+
+				vector_int_index = i;
+
+				//Checks to see what is the caracter before '*'
+				if (m_Vector_char.at(i - 1) == '+')
 				{
 					midel_var4 = midel_var2 + midel_var3;
-					result += midel_var4;
+
 				}
 
 				if (m_Vector_char.at(i - 1) == '-')
@@ -141,8 +163,8 @@ double Class::calculate()
 
 				if (m_Vector_char.at(i - 1) == '/')
 				{
-					midel_var4 = midel_var2 / midel_var3;
-					result += midel_var4;
+					midel_var2 = double(m_Vector_int.at(vector_int_index + 1));
+					result *= midel_var2;
 				}
 			}
 			else
@@ -153,8 +175,6 @@ double Class::calculate()
 			break;
 
 		case '/':
-			midel_var1 = double(m_Vector_int.at(vector_int_index));
-			midel_var2 = double(m_Vector_int.at(vector_int_index + 1));
 			if (i == 0)
 			{
 				result = midel_var1 / midel_var2;
