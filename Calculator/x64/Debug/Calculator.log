@@ -1,2 +1,3 @@
 ﻿  Class.cpp
-  Calculator.vcxproj -> C:\Users\Glumac\Desktop\GitHubss\Console_calculator\x64\Debug\Calculator.exe
+c:\users\nemanja glumicic\desktop\projects\github projects\console_calculator\calculator\class.cpp(77): warning C4101: 'middle_var4': unreferenced local variable
+  Calculator.vcxproj -> C:\Users\Nemanja Glumicic\Desktop\Projects\GitHub Projects\Console_calculator\x64\Debug\Calculator.exe
