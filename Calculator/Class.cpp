@@ -68,6 +68,8 @@ void Class::getSplit_input()
 	}
 }
 
+
+//-----------------------------CALCULATION-----------------------------
 double Class::calculate()
 {
 	double result = 0;
@@ -77,7 +79,7 @@ double Class::calculate()
 	double middle_var4;
 	int vector_int_index = 0;
 	int j;
-
+	bool flag = false;
 	
 
 	for (int i = 0; i < m_Vector_char.size(); i++) //Goes from the first to the last char in a vector(m_Vecotr_char)
@@ -96,9 +98,9 @@ double Class::calculate()
 				}
 			}
 			
-			if (i == 0) // If it's not then it check to see if 'i' is the first char in the program
+			if (i == 0) // If it's not then it check to see if '+' is the first char in the program
 			{
-				result = middle_var1 + middle_var2; //If it is then the result is the value before + the value after '+'
+				result = middle_var1 + middle_var2; //If it is then the result is the value before, +, the value after '+'
 			}
 			else
 				result += middle_var2;//If it's not the first sign in the program; the result is the result + the number after '+'
@@ -123,18 +125,44 @@ double Class::calculate()
 
 		case '*'://If 'm_Vector_char' that is being incremented by 'i' is '*' then...
 			middle_var3 = middle_var1 * middle_var2;
+			
 			if (i >= 0 && i < m_Vector_char.size() - 1)//...it checks to see if it's the first char in a program or not
 			{
 				if (m_Vector_char.at(i + 1) == '*')
 				{
-					while (m_Vector_char.at(j) == '*' && j != m_Vector_char.size()-1)
+					while (m_Vector_char.at(j) == '*' && j < m_Vector_char.size() - 1)
 					{
-						middle_var3 *= middle_var2;
+						if (!flag)
+						{
+							flag = true;
+							middle_var2 = double(m_Vector_int.at(j + 2));
+							middle_var3 *= middle_var2;
+						}
+						else
+						{
+							middle_var2 = double(m_Vector_int.at(j + 1));
+							middle_var3 *= middle_var2;
+						}
+						
 						j++;
 					}
 
 				}
 				
+				if (i == 0)
+				{
+					result = middle_var3;
+				}
+					
+				if (i > 0)
+				{
+					if (m_Vector_char.at(i - 1) == '+')
+						result += middle_var3;
+					if (m_Vector_char.at(i - 1) == '-')
+						result -= middle_var3;
+				}
+				
+				i = j;
 			}
 			else
 			{
