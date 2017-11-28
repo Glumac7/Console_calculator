@@ -1,14 +1,16 @@
 #include "Class.h"
 
-
+//-----------------------------INPUT-----------------------------
 void Class::input(std::string str)
 {
 	std::cout << "Enter some numbers with signes in between them(+, -, *, /): ";
 	std::getline(std::cin, str);
 
-	m_String_input =  str + " ";
+	m_String_input = str + " ";
+	
 }
 
+//-----------------------------SPLIT_INPUT-----------------------------
 void Class::getSplit_input()
 {
 	int  str_to_int = 0, multiplier = 1, end_value = 0;
@@ -85,7 +87,6 @@ double Class::calculate()
 	for (int i = 0; i < m_Vector_char.size(); i++) //Goes from the first to the last char in a vector(m_Vecotr_char)
 	{
 		middle_var1 = double(m_Vector_int.at(vector_int_index));
-		middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
 		j = i;
 		switch (m_Vector_char.at(i))
 		{
@@ -97,13 +98,18 @@ double Class::calculate()
 					break;
 				}
 			}
-			
+			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
 			if (i == 0) // If it's not then it check to see if '+' is the first char in the program
 			{
 				result = middle_var1 + middle_var2; //If it is then the result is the value before, +, the value after '+'
 			}
 			else
-				result += middle_var2;//If it's not the first sign in the program; the result is the result + the number after '+'
+			{
+				if (m_Vector_char.at(i - 1) == '*')
+					middle_var2 = double(m_Vector_int.at(vector_int_index + 2));
+				result += middle_var2;
+			}
+				//If it's not the first sign in the program; the result is the result + the number after '+'
 			break;
 
 		case '-'://Same as the '+' but this time it's '-'
@@ -114,36 +120,39 @@ double Class::calculate()
 					break;
 				}
 			}
-			
+			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
 			if (i == 0)
 			{
 				result = middle_var1 - middle_var2;
 			}
 			else
+			{
+				if (m_Vector_char.at(i - 1) == '*')
+					middle_var2 = double(m_Vector_int.at(vector_int_index + 2));
 				result -= middle_var2;
+			}
+				
 			break;
 
 		case '*'://If 'm_Vector_char' that is being incremented by 'i' is '*' then...
+			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
 			middle_var3 = middle_var1 * middle_var2;
 			
 			if (i >= 0 && i < m_Vector_char.size() - 1)//...it checks to see if it's the first char in a program or not
 			{
 				if (m_Vector_char.at(i + 1) == '*')
 				{
-					while (m_Vector_char.at(j) == '*' && j < m_Vector_char.size() - 1)
+					while (m_Vector_char.at(j) == '*' && j < m_Vector_char.size() - 1 )
 					{
-						if (!flag)
-						{
-							flag = true;
-							middle_var2 = double(m_Vector_int.at(j + 2));
-							middle_var3 *= middle_var2;
-						}
+						
+						if (m_Vector_char.at(j + 1) == '+' || m_Vector_char.at(j + 1) == '-')
+							break;
 						else
 						{
-							middle_var2 = double(m_Vector_int.at(j + 1));
+							middle_var2 = double(m_Vector_int.at(j + 2));
 							middle_var3 *= middle_var2;
+							std::cout << middle_var3 << " ";
 						}
-						
 						j++;
 					}
 
@@ -153,15 +162,20 @@ double Class::calculate()
 				{
 					result = middle_var3;
 				}
-					
+
 				if (i > 0)
 				{
 					if (m_Vector_char.at(i - 1) == '+')
 						result += middle_var3;
 					if (m_Vector_char.at(i - 1) == '-')
-						result -= middle_var3;
+						result -= middle_var3; // nevalja sabiranje i oduzimanje koristi vrednost pre plus ili minus
+					if (i == 1)
+					{
+						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
+						result = middle_var2 + middle_var3;
+					}
 				}
-				
+
 				i = j;
 			}
 			else
