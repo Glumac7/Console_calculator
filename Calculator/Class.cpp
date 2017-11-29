@@ -4,10 +4,10 @@
 void Class::input(std::string str)
 {
 	std::cout << "Enter some numbers with signes in between them(+, -, *, /): ";
+
 	std::getline(std::cin, str);
 
 	m_String_input = str + " ";
-	
 }
 
 //-----------------------------SPLIT_INPUT-----------------------------
@@ -108,6 +108,7 @@ double Class::calculate()
 				if (m_Vector_char.at(i - 1) == '*')
 					middle_var2 = double(m_Vector_int.at(vector_int_index + 2));
 				result += middle_var2;
+				std::cout << middle_var2;
 			}
 				//If it's not the first sign in the program; the result is the result + the number after '+'
 			break;
@@ -127,6 +128,7 @@ double Class::calculate()
 			}
 			else
 			{
+				middle_var2 = double(m_Vector_int.at(vector_int_index + 2));
 				if (m_Vector_char.at(i - 1) == '*')
 					middle_var2 = double(m_Vector_int.at(vector_int_index + 2));
 				result -= middle_var2;
@@ -145,7 +147,7 @@ double Class::calculate()
 					while (m_Vector_char.at(j) == '*' && j < m_Vector_char.size() - 1 )
 					{
 						
-						if (m_Vector_char.at(j + 1) == '+' || m_Vector_char.at(j + 1) == '-')
+						if (m_Vector_char.at(j + 1) == '+' || m_Vector_char.at(j + 1) == '-' || m_Vector_char.at(j + 1) == '/')
 							break;
 						else
 						{
@@ -213,12 +215,81 @@ double Class::calculate()
 			break;
 
 		case '/':
-			if (i == 0)
+			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
+			middle_var3 = middle_var1 / middle_var2;
+
+			if (i >= 0 && i < m_Vector_char.size() - 1)//...it checks to see if it's the first char in a program or not
 			{
-				result = middle_var1 / middle_var2;
+				if (m_Vector_char.at(i + 1) == '/')
+				{
+					while (m_Vector_char.at(j) == '/' && j < m_Vector_char.size() - 1)
+					{
+
+						if (m_Vector_char.at(j + 1) == '+' || m_Vector_char.at(j + 1) == '-' || m_Vector_char.at(j + 1) == '*')
+							break;
+						else
+						{
+							middle_var2 = double(m_Vector_int.at(j + 2));
+							middle_var3 *= middle_var2;
+							std::cout << middle_var3 << " ";
+						}
+						j++;
+					}
+
+				}
+
+				if (i == 0)
+				{
+					result = middle_var3;
+				}
+
+				if (i > 0)
+				{
+					if (m_Vector_char.at(i - 1) == '+')
+						result += middle_var3;
+					if (m_Vector_char.at(i - 1) == '-')
+						result -= middle_var3; // nevalja sabiranje i oduzimanje koristi vrednost pre plus ili minus
+					if (i == 1)
+					{
+						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
+						result = middle_var2 + middle_var3;
+					}
+				}
+
+				i = j;
 			}
 			else
-				result /= middle_var2;
+			{
+				if (i == 1)
+				{
+					middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
+					if (m_Vector_char.at(i - 1) == '+')
+					{
+						result = middle_var2;
+						result += middle_var3;
+					}
+
+					if (m_Vector_char.at(i - 1) == '-')
+					{
+						result = middle_var2;
+						result -= middle_var3;
+					}
+				}
+				else if (m_Vector_char.size() > 1)
+				{
+					if (m_Vector_char.at(i - 1) == '+')
+					{
+						result += middle_var3;
+					}
+
+					if (m_Vector_char.at(i - 1) == '-')
+					{
+						result -= middle_var3;
+					}
+				}
+				else
+					result = middle_var3;
+			}
 			break;
 
 		default:
