@@ -147,6 +147,7 @@ double Class::calculate()
 						{
 							middle_var2 = double(m_Vector_int.at(j + 2));
 							middle_var3 *= middle_var2;
+							std::cout << middle_var3;
 						}
 						j++;
 					}
@@ -207,6 +208,12 @@ double Class::calculate()
 					{
 						result -= middle_var3;
 					}
+
+					if (m_Vector_char.at(i - 1) == '/')
+					{
+						middle_var2 = double(m_Vector_int.at(i + 1));
+						result *= middle_var2;
+					}
 				}
 				else
 					result = middle_var3;
@@ -229,13 +236,13 @@ double Class::calculate()
 							break;
 						else
 						{
-							middle_var2 = double(m_Vector_int.at(j + 2));
+							middle_var2 = double(m_Vector_int.at(j + 1));
 							middle_var3 /= middle_var2;
 							std::cout << middle_var3 << " ";
 						}
+						
 						j++;
 					}
-
 				}
 
 				if (i == 0)
@@ -251,6 +258,7 @@ double Class::calculate()
 						result -= middle_var3; 
 					if (m_Vector_int.at(i - 1) == '*')
 						result *= middle_var3;
+
 					if (i == 1)
 					{
 						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
@@ -285,8 +293,7 @@ double Class::calculate()
 
 					if (m_Vector_char.at(i - 1) == '*')
 					{
-						result = middle_var2;
-						result *= middle_var3;
+						result /= middle_var2;
 					}
 				}
 				else if (m_Vector_char.size() > 1)
@@ -299,6 +306,12 @@ double Class::calculate()
 					if (m_Vector_char.at(i - 1) == '-')
 					{
 						result -= middle_var3;
+					}
+
+					if (m_Vector_char.at(i - 1) == '*')
+					{
+						middle_var2 = double(m_Vector_int.at(i + 1));
+						result /= middle_var2;
 					}
 				}
 				else
