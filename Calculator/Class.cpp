@@ -70,7 +70,6 @@ void Class::getSplit_input()
 	}
 }
 
-
 //-----------------------------CALCULATION-----------------------------
 double Class::calculate()
 {
@@ -79,9 +78,13 @@ double Class::calculate()
 	double middle_var2;
 	double middle_var3;
 	double middle_var4;
+	double middle_var5;
+	char sign;
 	int vector_int_index = 0;
 	int j;
-	bool flag = false;
+	int count = 0;
+	bool flag1 = false;
+	bool flag2 = false;
 	
 
 	for (int i = 0; i < m_Vector_char.size(); i++) //Goes from the first to the last char in a vector(m_Vecotr_char)
@@ -107,7 +110,6 @@ double Class::calculate()
 			{
 				result += middle_var2;
 			}
-				//If it's not the first sign in the program; the result is the result + the number after '+'
 			break;
 
 		case '-'://Same as the '+' but this time it's '-'
@@ -127,13 +129,22 @@ double Class::calculate()
 			{
 				result -= middle_var2;
 			}
-				
 			break;
 
 		case '*'://If 'm_Vector_char' that is being incremented by 'i' is '*' then...
 			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
-			middle_var3 = middle_var1 * middle_var2;
-			
+			if (i > 0)
+			{
+				if (m_Vector_char.at(i - 1) == '/')
+				{
+					middle_var4 = middle_var2;
+				}
+				else
+					middle_var4 = middle_var1 * middle_var2;
+			}
+			else
+				middle_var4 = middle_var1 * middle_var2;
+
 			if (i >= 0 && i < m_Vector_char.size() - 1)//...it checks to see if it's the first char in a program or not
 			{
 				if (m_Vector_char.at(i + 1) == '*')
@@ -146,8 +157,8 @@ double Class::calculate()
 						else
 						{
 							middle_var2 = double(m_Vector_int.at(j + 2));
-							middle_var3 *= middle_var2;
-							std::cout << middle_var3;
+							middle_var4 *= middle_var2;
+							std::cout << middle_var4;
 						}
 						j++;
 					}
@@ -156,74 +167,147 @@ double Class::calculate()
 				
 				if (i == 0)
 				{
-					result = middle_var3;
+					result = middle_var4;
 				}
 
 				if (i > 0)
 				{
-					if (m_Vector_char.at(i - 1) == '+')
-						result += middle_var3;
-					if (m_Vector_char.at(i - 1) == '-')
-						result -= middle_var3; // nevalja sabiranje i oduzimanje koristi vrednost pre plus ili minus
+					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(i + 1) != '/')
+					{
+						if (m_Vector_char.at(i - 1) == '+')
+							result += middle_var4;
+						if (m_Vector_char.at(i - 1) == '-')
+							result -= middle_var4;
+					}
+					else
+					{
+						sign = m_Vector_char.at(i - 1);
+						middle_var5 = result;
+					}
+						
+					
 					if (i == 1)
 					{
 						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-						if(m_Vector_char.at(i - 1) == '+')
-							result = middle_var2 + middle_var3;
-						if(m_Vector_char.at(i - 1) == '-')
-							result = middle_var2 - middle_var3;
-						if (m_Vector_char.at(i - 1) == '/')
-							result = middle_var2 / middle_var3;
+						if (i < m_Vector_char.size() - 1 && m_Vector_char.at(i + 1) != '/')
+						{
+							if (m_Vector_char.at(i - 1) == '+')
+								result = middle_var2 + middle_var4;
+							if (m_Vector_char.at(i - 1) == '-')
+								result = middle_var2 - middle_var4;
+							
+						}
+						else
+						{
+							sign = m_Vector_char.at(i - 1);
+							middle_var5 = middle_var2;
+						}
 					}
 				}
 
-				i = j;
-				vector_int_index = i;
+				
 			}
 			else
 			{
 				if (i == 1)
 				{
 					middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-					if (m_Vector_char.at(i - 1) == '+')
+					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(i + 1) != '/')
 					{
-						result = middle_var2;
-						result += middle_var3;
-					}
+						if (m_Vector_char.at(i - 1) == '+')
+						{
+							result = middle_var2;
+							result += middle_var4;
+						}
 
-					if (m_Vector_char.at(i - 1) == '-')
+						if (m_Vector_char.at(i - 1) == '-')
+						{
+							result = middle_var2;
+							result -= middle_var4;
+						}
+					}
+					else
 					{
-						result = middle_var2;
-						result -= middle_var3;
+						sign = m_Vector_char.at(i - 1);
+						middle_var5 = middle_var2;
 					}
 				}
 				else if (m_Vector_char.size() > 1)
 				{
-					if (m_Vector_char.at(i - 1) == '+')
+					if (i < m_Vector_char.size() - 1)
 					{
-						result += middle_var3;
-					}
+						if (m_Vector_char.at(i + 1) != '/')
+						{
+							if (m_Vector_char.at(i - 1) == '+')
+							{
+								result += middle_var4;
+							}
 
-					if (m_Vector_char.at(i - 1) == '-')
-					{
-						result -= middle_var3;
-					}
+							if (m_Vector_char.at(i - 1) == '-')
+							{
+								result -= middle_var4;
+							}
 
-					if (m_Vector_char.at(i - 1) == '/')
+							if (m_Vector_char.at(i - 1) == '/')
+							{
+								middle_var2 = double(m_Vector_int.at(i + 1));
+								result *= middle_var2;
+							}
+						}
+						else
+						{
+							sign = m_Vector_char.at(i - 1);
+							middle_var5 = result;
+						}
+					}
+					else
 					{
-						middle_var2 = double(m_Vector_int.at(i + 1));
-						result *= middle_var2;
+						if (m_Vector_char.at(i - 1) == '+')
+						{
+							result += middle_var4;
+						}
+
+						if (m_Vector_char.at(i - 1) == '-')
+						{
+							result -= middle_var4;
+						}
+
 					}
 				}
 				else
-					result = middle_var3;
+					result = middle_var4;
 			}
 
+			if (i > 0)
+			{
+				if (m_Vector_char.at(i - 1) == '/')
+				{
+					if (!flag1)
+					{
+						result = middle_var3 * middle_var4;
+						flag1 = true;
+						flag2 = true;
+					}
+						
+					else
+						result *= middle_var4;	
+				}
+			}
+			i = j;
+			vector_int_index = i;
 			break;
 
 		case '/':
 			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
-			middle_var3 = middle_var1 / middle_var2;
+			if (i > 0)
+			{
+				if (m_Vector_char.at(i - 1) == '*')
+					middle_var3 = middle_var2;
+				else
+					middle_var3 = middle_var1 / middle_var2;
+			}
+			else
+				middle_var3 = middle_var1 / middle_var2;
 
 			if (i >= 0 && i < m_Vector_char.size() - 1)//...it checks to see if it's the first char in a program or not
 			{
@@ -256,8 +340,6 @@ double Class::calculate()
 						result += middle_var3;
 					if (m_Vector_char.at(i - 1) == '-')
 						result -= middle_var3; 
-					if (m_Vector_int.at(i - 1) == '*')
-						result *= middle_var3;
 
 					if (i == 1)
 					{
@@ -266,8 +348,6 @@ double Class::calculate()
 							result = middle_var2 + middle_var3;
 						if (m_Vector_char.at(i - 1) == '-')
 							result = middle_var2 - middle_var3;
-						if (m_Vector_char.at(i - 1) == '*')
-							result = middle_var2 * middle_var3;
 					}
 				}
 
@@ -307,16 +387,29 @@ double Class::calculate()
 					{
 						result -= middle_var3;
 					}
-
-					if (m_Vector_char.at(i - 1) == '*')
-					{
-						middle_var2 = double(m_Vector_int.at(i + 1));
-						result /= middle_var2;
-					}
 				}
 				else
 					result = middle_var3;
 			}
+			
+			if (i > 0)
+				if (m_Vector_char.at(i - 1) == '*')
+				{
+					if (!flag2)
+					{
+						result = middle_var4 / middle_var3;
+						flag1 = true;
+						flag2 = true;
+					}
+						
+					else
+					{
+						result /= middle_var3;
+						
+					}
+					
+				}
+			
 			break;
 
 		default:
