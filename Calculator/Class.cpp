@@ -78,11 +78,12 @@ double Class::calculate()
 	double middle_var2;
 	double middle_var3;
 	double middle_var4;
-	double middle_var5;
-	char sign;
+	double middle_var5 = 0;
+	char sign = '_';
 	int vector_int_index = 0;
 	int j;
 	int count = 0;
+	int k;
 	bool flag1 = false;
 	bool flag2 = false;
 	
@@ -164,6 +165,8 @@ double Class::calculate()
 					}
 
 				}
+
+				k = j;
 				
 				if (i == 0)
 				{
@@ -172,7 +175,7 @@ double Class::calculate()
 
 				if (i > 0)
 				{
-					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(i + 1) != '/')
+					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(k) != '/')/////////////////////
 					{
 						if (m_Vector_char.at(i - 1) == '+')
 							result += middle_var4;
@@ -189,7 +192,7 @@ double Class::calculate()
 					if (i == 1)
 					{
 						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-						if (i < m_Vector_char.size() - 1 && m_Vector_char.at(i + 1) != '/')
+						if (i < m_Vector_char.size() - 1 && m_Vector_char.at(k) != '/')
 						{
 							if (m_Vector_char.at(i - 1) == '+')
 								result = middle_var2 + middle_var4;
@@ -212,7 +215,7 @@ double Class::calculate()
 				if (i == 1)
 				{
 					middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(i + 1) != '/')
+					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(k) != '/')
 					{
 						if (m_Vector_char.at(i - 1) == '+')
 						{
@@ -236,7 +239,7 @@ double Class::calculate()
 				{
 					if (i < m_Vector_char.size() - 1)
 					{
-						if (m_Vector_char.at(i + 1) != '/')
+						if (m_Vector_char.at(k) != '/')
 						{
 							if (m_Vector_char.at(i - 1) == '+')
 							{
@@ -293,6 +296,7 @@ double Class::calculate()
 						result *= middle_var4;	
 				}
 			}
+
 			i = j;
 			vector_int_index = i;
 			break;
@@ -309,6 +313,7 @@ double Class::calculate()
 			else
 				middle_var3 = middle_var1 / middle_var2;
 
+		
 			if (i >= 0 && i < m_Vector_char.size() - 1)//...it checks to see if it's the first char in a program or not
 			{
 				if (m_Vector_char.at(i + 1) == '/')
@@ -316,8 +321,11 @@ double Class::calculate()
 					while (m_Vector_char.at(j) == '/' && j < m_Vector_char.size() - 1)
 					{
 
-						if (m_Vector_char.at(j + 1) == '+' || m_Vector_char.at(j + 1) == '-' || m_Vector_char.at(j + 1) == '*')
-							break;
+						if (m_Vector_char.at(j - 1) == '*')
+						{
+							middle_var2 = double(m_Vector_int.at(j + 1));
+							middle_var3 *= middle_var2;
+						}
 						else
 						{
 							middle_var2 = double(m_Vector_int.at(j + 1));
@@ -351,8 +359,7 @@ double Class::calculate()
 					}
 				}
 
-				i = j;
-				vector_int_index = i;
+				
 			}
 			else
 			{
@@ -409,7 +416,15 @@ double Class::calculate()
 					}
 					
 				}
+
+			if (sign == '+')
+			{
+				result = middle_var5 + result;
+			}
 			
+			i = j;
+			vector_int_index = i;
+
 			break;
 
 		default:
@@ -422,6 +437,7 @@ double Class::calculate()
 
 	return result;
 }
+
 void Class::output()
 {
 	std::cout << "Numbers: ";
