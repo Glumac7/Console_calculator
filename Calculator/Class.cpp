@@ -165,7 +165,7 @@ double Class::calculate()
 
 				if (i > 0)
 				{
-					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j) != '/')/////////////////////
+					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j + 1) != '/')/////////////////////
 					{
 						if (m_Vector_char.at(i - 1) == '+')
 							result += middle_var4;
@@ -182,7 +182,7 @@ double Class::calculate()
 					if (i == 1)
 					{
 						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-						if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j) != '/')
+						if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j + 1) != '/')
 						{
 							if (m_Vector_char.at(i - 1) == '+')
 								result = middle_var2 + middle_var4;
@@ -205,7 +205,7 @@ double Class::calculate()
 				if (i == 1)
 				{
 					middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j) != '/')
+					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j + 1) != '/')
 					{
 						if (m_Vector_char.at(i - 1) == '+')
 						{
@@ -229,7 +229,7 @@ double Class::calculate()
 				{
 					if (i < m_Vector_char.size() - 1)
 					{
-						if (m_Vector_char.at(j) != '/')
+						if (m_Vector_char.at(j + 1) != '/')
 						{
 							if (m_Vector_char.at(i - 1) == '+')
 							{
@@ -310,12 +310,12 @@ double Class::calculate()
 				{
 					while (m_Vector_char.at(j) == '/' && j < m_Vector_char.size() - 1)
 					{
-						if (m_Vector_char.at(j + 1) == '+' || m_Vector_char.at(j + 1) == '-')
+						if (m_Vector_char.at(j + 1) == '+' || m_Vector_char.at(j + 1) == '-' || m_Vector_char.at(j + 1) == '*')
 							break;
 
 						if (i > 0 && m_Vector_char.at(i - 1) == '*')
 						{
-							middle_var2 = double(m_Vector_int.at(j + 1));
+							middle_var2 = double(m_Vector_int.at(j + 2));
 							middle_var3 *= middle_var2;
 						}
 						else
@@ -410,9 +410,10 @@ double Class::calculate()
 				}
 
 			if (sign == '+')
-			{
 				result += middle_var5;
-			}
+
+			if (sign == '-')
+				result -= middle_var5;
 			
 			i = j;
 			vector_int_index = i;
