@@ -5,9 +5,9 @@ void Class::input(std::string str)
 {
 	std::cout << "Enter some numbers with signes in between them(+, -, *, /): ";
 
-	std::getline(std::cin, str);
+	std::getline(std::cin, str);//Inputs some numbers and signs
 
-	m_String_input = str + " ";
+	m_String_input = str + " ";//Pushes the input to the string
 }
 
 //-----------------------------SPLIT_INPUT-----------------------------
@@ -61,7 +61,7 @@ void Class::getSplit_input()
 			m_Vector_int.push_back(end_value); //Pushes the end_value
 			m_Vector_char.push_back(m_String_input.at(i)); //Pushes the sign(+, -, *, /)
 
-														   //Resets the values
+			//Resets the values
 			end_value = 0;
 			middle_value = 0;
 			multiplier = 1;
@@ -125,70 +125,67 @@ double Class::calculate()
 			break;
 
 		case '*'://If 'm_Vector_char' that is being incremented by 'i' is '*' then...
+
 			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
-			if (i > 0)
+
+			if (i > 0)//Checks to see if the sign thats on 'i' index is the first in a program or not
 			{
-				if (m_Vector_char.at(i - 1) == '/')
+				if (m_Vector_char.at(i - 1) == '/')//If it is not then it checks to see if the sign before is '/' or not
 				{
-					middle_var4 = middle_var2;
+					middle_var4 = middle_var2;//If it is then the 'middle_var4' is the number after '/'
 				}
 				else
-					middle_var4 = middle_var1 * middle_var2;
+					middle_var4 = middle_var1 * middle_var2;//If it's not then it multiplays the number before and the number after '*'
 			}
 			else
-				middle_var4 = middle_var1 * middle_var2;
+				middle_var4 = middle_var1 * middle_var2;//If it's not then it multiplays the number before and the number after '*'
 
 			if (i >= 0 && i < m_Vector_char.size() - 1)//...it checks to see if it's the first char in a program or not
 			{
-				if (m_Vector_char.at(i + 1) == '*')
+				if (m_Vector_char.at(i + 1) == '*')//If the sign after '*' is '*'
 				{
-					while (m_Vector_char.at(j) == '*' && j < m_Vector_char.size() - 1 )
+					while (m_Vector_char.at(j) == '*' && j < m_Vector_char.size() - 1 )//Repeat as long as the sign is '*'
 					{
 						
 						if (m_Vector_char.at(j + 1) == '+' || m_Vector_char.at(j + 1) == '-' || m_Vector_char.at(j + 1) == '/')
-							break;
-						else
+							break;//If the next sign is '+', '-' or '/' it exits the loop
+						else//If it's not, it multiplies the numbers before and after '*'
 						{
 							middle_var2 = double(m_Vector_int.at(j + 2));
 							middle_var4 *= middle_var2;
-							std::cout << middle_var4;
 						}
 						j++;
 					}
 
 				}
 				
-				if (i == 0)
-				{
+				if (i == 0)//If '*' is the first sign in the program it makes the result, the result of *
 					result = middle_var4;
-				}
 
-				if (i > 0)
+				if (i > 0)//If '*' is not first in the program
 				{
-					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j + 1) != '/')/////////////////////
+					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j + 1) != '/')//If '*' is not the last sign in the progam and the next sign is not '/'
 					{
-						if (m_Vector_char.at(i - 1) == '+')
+						if (m_Vector_char.at(i - 1) == '+')//If the sign before is '+' it adds the result with the result of *
 							result += middle_var4;
-						if (m_Vector_char.at(i - 1) == '-')
+						if (m_Vector_char.at(i - 1) == '-')//If the sign before is '-' it subtracts the result with the result of *
 							result -= middle_var4;
 					}
-					else
+					else//If '*' is the last sign in the program or the next sign is '/'
 					{
-						sign = m_Vector_char.at(i - 1);
+						sign = m_Vector_char.at(i - 1);//'sign' is the sign befotr '*'
 						middle_var5 = result;
-					}
-						
+					}	
 					
-					if (i == 1)
+					if (i == 1)//If '*' is the second in the program
 					{
-						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-						if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j + 1) != '/')
+						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));//'middle_var2' is the number after i
+						if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j + 1) != '/')//Then it checks to see if 'i' is not the last index in a program
 						{
 							if (m_Vector_char.at(i - 1) == '+')
 								result = middle_var2 + middle_var4;
 							if (m_Vector_char.at(i - 1) == '-')
 								result = middle_var2 - middle_var4;
-							
 						}
 						else
 						{
@@ -330,9 +327,7 @@ double Class::calculate()
 				}
 
 				if (i == 0)
-				{
 					result = middle_var3;
-				}
 
 				if (i > 0)
 				{
@@ -350,8 +345,6 @@ double Class::calculate()
 							result = middle_var2 - middle_var3;
 					}
 				}
-
-				
 			}
 			else
 			{
@@ -435,11 +428,5 @@ double Class::calculate()
 //-----------------------------OUTPUT-----------------------------
 void Class::output()
 {
-	std::cout << "Numbers: ";
-	for (int i = 0; i < m_Vector_int.size(); i++)
-	{
-		std::cout << m_Vector_int.at(i) << " ";
-	}
-	std::cout << "\n";
 	std::cout << "Calculation: " << calculate();
 }
