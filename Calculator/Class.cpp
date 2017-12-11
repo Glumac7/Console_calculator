@@ -80,7 +80,9 @@ double Class::calculate()
 	double middle_var3;
 	double middle_var4;
 	double middle_var5 = 0;
+	double middle_var6 = 0;
 	char sign = '_';
+	char sign2 = '|';
 	int vector_int_index = 0;
 	int j;
 	bool flag1 = false;
@@ -165,36 +167,62 @@ double Class::calculate()
 
 				if (i > 0)
 				{
-					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j + 1) != '/')/////////////////////
+					if (i < m_Vector_char.size() - 1)
+					{
+						if (m_Vector_char.at(j + 1) != '/')/////////////////////
+						{
+							if (m_Vector_char.at(i - 1) == '+')
+								result += middle_var4;
+
+							if (m_Vector_char.at(i - 1) == '-')
+								result -= middle_var4;
+						}
+
+						else
+						{
+							sign = m_Vector_char.at(i - 1);
+							middle_var5 = result;
+						}
+					}
+					
+					else
 					{
 						if (m_Vector_char.at(i - 1) == '+')
 							result += middle_var4;
+
 						if (m_Vector_char.at(i - 1) == '-')
 							result -= middle_var4;
+
 					}
-					else
-					{
-						sign = m_Vector_char.at(i - 1);
-						middle_var5 = result;
-					}
-						
 					
 					if (i == 1)
 					{
 						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-						if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j + 1) != '/')
+						if (i < m_Vector_char.size() - 1)
+						{
+							if (m_Vector_char.at(j + 1) != '/')
+							{
+								if (m_Vector_char.at(i - 1) == '+')
+									result = middle_var2 + middle_var4;
+								if (m_Vector_char.at(i - 1) == '-')
+									result = middle_var2 - middle_var4;
+
+							}
+							else
+							{
+								sign = m_Vector_char.at(i - 1);
+								middle_var5 = middle_var2;
+							}
+						}
+
+						else
 						{
 							if (m_Vector_char.at(i - 1) == '+')
 								result = middle_var2 + middle_var4;
 							if (m_Vector_char.at(i - 1) == '-')
 								result = middle_var2 - middle_var4;
-							
 						}
-						else
-						{
-							sign = m_Vector_char.at(i - 1);
-							middle_var5 = middle_var2;
-						}
+						
 					}
 				}
 
@@ -205,7 +233,30 @@ double Class::calculate()
 				if (i == 1)
 				{
 					middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-					if (i < m_Vector_char.size() - 1 && m_Vector_char.at(j + 1) != '/')
+					if (i < m_Vector_char.size() - 1)
+					{
+						if (m_Vector_char.at(j + 1) != '/')
+						{
+							if (m_Vector_char.at(i - 1) == '+')
+							{
+								result = middle_var2;
+								result += middle_var4;
+							}
+
+							if (m_Vector_char.at(i - 1) == '-')
+							{
+								result = middle_var2;
+								result -= middle_var4;
+							}
+						}
+
+						else
+						{
+							sign = m_Vector_char.at(i - 1);
+							middle_var5 = middle_var2;
+						}
+					}
+					else
 					{
 						if (m_Vector_char.at(i - 1) == '+')
 						{
@@ -218,11 +269,6 @@ double Class::calculate()
 							result = middle_var2;
 							result -= middle_var4;
 						}
-					}
-					else
-					{
-						sign = m_Vector_char.at(i - 1);
-						middle_var5 = middle_var2;
 					}
 				}
 				else if (m_Vector_char.size() > 1)
@@ -287,6 +333,20 @@ double Class::calculate()
 				}
 			}
 
+			if (sign2 == '+')
+			{
+				result += middle_var6;
+				sign2 = '_';
+				middle_var6 = 0;
+			}
+
+			if (sign2 == '-')
+			{
+				result = middle_var6 - result;
+				sign2 = '_';
+				middle_var6 = 0;
+			}
+
 			i = j;
 			vector_int_index = i;
 			break;
@@ -336,56 +396,153 @@ double Class::calculate()
 
 				if (i > 0)
 				{
-					if (m_Vector_char.at(i - 1) == '+')
-						result += middle_var3;
-					if (m_Vector_char.at(i - 1) == '-')
-						result -= middle_var3; 
+					if (i < m_Vector_char.size() - 1)
+					{
+						if (m_Vector_char.at(j + 1) != '*')/////////////////////
+						{
+							if (m_Vector_char.at(i - 1) == '+')
+								result += middle_var3;
+
+							if (m_Vector_char.at(i - 1) == '-')
+								result -= middle_var3;
+						}
+
+						else
+						{
+							sign2 = m_Vector_char.at(i - 1);
+							middle_var6 = result;
+						}
+					}
+
+					else
+					{
+						if (m_Vector_char.at(i - 1) == '+')
+							result += middle_var3;
+
+						if (m_Vector_char.at(i - 1) == '-')
+							result -= middle_var3;
+					}
+					
 
 					if (i == 1)
 					{
 						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-						if (m_Vector_char.at(i - 1) == '+')
-							result = middle_var2 + middle_var3;
-						if (m_Vector_char.at(i - 1) == '-')
-							result = middle_var2 - middle_var3;
+						if (i < m_Vector_char.size() - 1)
+						{
+							if (m_Vector_char.at(j + 1) != '*')
+							{
+								if (m_Vector_char.at(i - 1) == '+')
+									result = middle_var2 + middle_var3;
+
+								if (m_Vector_char.at(i - 1) == '-')
+									result = middle_var2 - middle_var3;
+
+							}
+							else
+							{
+								sign2 = m_Vector_char.at(i - 1);
+								middle_var6 = middle_var2;
+							}
+						}
+
+						else
+						{
+							if (m_Vector_char.at(i - 1) == '+')
+								result = middle_var2 + middle_var3;
+
+							if (m_Vector_char.at(i - 1) == '-')
+								result = middle_var2 - middle_var3;
+						}
+						
 					}
 				}
-
-				
 			}
 			else
 			{
 				if (i == 1)
 				{
 					middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-					if (m_Vector_char.at(i - 1) == '+')
+					if (i < m_Vector_char.size() - 1)
 					{
-						result = middle_var2;
-						result += middle_var3;
-					}
+						if (m_Vector_char.at(j + 1) != '/')
+						{
+							if (m_Vector_char.at(i - 1) == '+')
+							{
+								result = middle_var2;
+								result += middle_var3;
+							}
 
-					if (m_Vector_char.at(i - 1) == '-')
-					{
-						result = middle_var2;
-						result -= middle_var3;
-					}
+							if (m_Vector_char.at(i - 1) == '-')
+							{
+								result = middle_var2;
+								result -= middle_var3;
+							}
+						}
 
-					if (m_Vector_char.at(i - 1) == '*')
-					{
-						result /= middle_var2;
+						else
+						{
+							sign2 = m_Vector_char.at(i - 1);
+							middle_var6 = middle_var2;
+						}
 					}
+					else
+					{
+						if (m_Vector_char.at(i - 1) == '+')
+						{
+							result = middle_var2;
+							result += middle_var3;
+						}
+
+						if (m_Vector_char.at(i - 1) == '-')
+						{
+							result = middle_var2;
+							result -= middle_var3;
+						}
+					}
+					
 				}
 				else if (m_Vector_char.size() > 1)
 				{
-					if (m_Vector_char.at(i - 1) == '+')
+					if (i < m_Vector_char.size() - 1)
 					{
-						result += middle_var3;
-					}
+						if (m_Vector_char.at(j + 1) != '*')
+						{
+							if (m_Vector_char.at(i - 1) == '+')
+							{
+								result += middle_var3;
+							}
 
-					if (m_Vector_char.at(i - 1) == '-')
-					{
-						result -= middle_var3;
+							if (m_Vector_char.at(i - 1) == '-')
+							{
+								result -= middle_var3;
+							}
+
+							if (m_Vector_char.at(i - 1) == '*')
+							{
+								middle_var2 = double(m_Vector_int.at(i + 1));
+								result /= middle_var2;
+							}
+						}
+						else
+						{
+							sign2 = m_Vector_char.at(i - 1);
+							middle_var6 = result;
+						}
 					}
+					else
+					{
+						if (m_Vector_char.at(i - 1) == '+')
+						{
+							result += middle_var3;
+						}
+
+						if (m_Vector_char.at(i - 1) == '-')
+						{
+							result -= middle_var3;
+						}
+
+					}
+					
 				}
 				else
 					result = middle_var3;
@@ -418,11 +575,10 @@ double Class::calculate()
 				
 			if (sign == '-')
 			{
-				result -= middle_var5;
+				result = middle_var5 - result;
 				sign = '_';
 				middle_var5 = 0;
 			}
-				
 			
 			i = j;
 			vector_int_index = i;
