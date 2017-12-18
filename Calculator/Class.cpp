@@ -97,7 +97,12 @@ double Class::calculate()
 		case '+': //If 'm_Vector_char' that is being incremented by 'i' is '+' then...
 			if (m_Vector_char.size() > 1 && i < m_Vector_char.size() - 1)
 				if (m_Vector_char.at(i + 1) == '*' || m_Vector_char.at(i + 1) == '/') //...it checks if the next index is '*' or '/'
+				{
+					flag1 = false;
+					flag2 = false;
 					break;
+				}
+					
 
 			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
 			if (i == 0) // If it's not then it check to see if '+' is the first char in the program
@@ -113,7 +118,11 @@ double Class::calculate()
 		case '-'://Same as the '+' but this time it's '-'
 			if (m_Vector_char.size() > 1 && i < m_Vector_char.size() - 1)
 				if (m_Vector_char.at(i + 1) == '*' || m_Vector_char.at(i + 1) == '/')
+				{
+					flag1 = false;
+					flag2 = false;
 					break;
+				}
 
 			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
 			if (i == 0)
@@ -167,7 +176,7 @@ double Class::calculate()
 
 				if (i > 0)
 				{
-					if (i < m_Vector_char.size() - 1)
+					if (j < m_Vector_char.size() - 1)
 					{
 						if (m_Vector_char.at(j + 1) != '/')/////////////////////
 						{
@@ -198,7 +207,7 @@ double Class::calculate()
 					if (i == 1)
 					{
 						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-						if (i < m_Vector_char.size() - 1)
+						if (j < m_Vector_char.size() - 1)
 						{
 							if (m_Vector_char.at(j + 1) != '/')
 							{
@@ -233,7 +242,7 @@ double Class::calculate()
 				if (i == 1)
 				{
 					middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-					if (i < m_Vector_char.size() - 1)
+					if (j < m_Vector_char.size() - 1)
 					{
 						if (m_Vector_char.at(j + 1) != '/')
 						{
@@ -273,7 +282,7 @@ double Class::calculate()
 				}
 				else if (m_Vector_char.size() > 1)
 				{
-					if (i < m_Vector_char.size() - 1)
+					if (j < m_Vector_char.size() - 1)
 					{
 						if (m_Vector_char.at(j + 1) != '/')
 						{
@@ -396,7 +405,7 @@ double Class::calculate()
 
 				if (i > 0)
 				{
-					if (i < m_Vector_char.size() - 1)
+					if (j < m_Vector_char.size() - 1)
 					{
 						if (m_Vector_char.at(j + 1) != '*')/////////////////////
 						{
@@ -427,7 +436,7 @@ double Class::calculate()
 					if (i == 1)
 					{
 						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-						if (i < m_Vector_char.size() - 1)
+						if (j < m_Vector_char.size() - 1)
 						{
 							if (m_Vector_char.at(j + 1) != '*')
 							{
@@ -462,7 +471,7 @@ double Class::calculate()
 				if (i == 1)
 				{
 					middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-					if (i < m_Vector_char.size() - 1)
+					if (j < m_Vector_char.size() - 1)
 					{
 						if (m_Vector_char.at(j + 1) != '/')
 						{
@@ -503,7 +512,7 @@ double Class::calculate()
 				}
 				else if (m_Vector_char.size() > 1)
 				{
-					if (i < m_Vector_char.size() - 1)
+					if (j < m_Vector_char.size() - 1)
 					{
 						if (m_Vector_char.at(j + 1) != '*')
 						{
