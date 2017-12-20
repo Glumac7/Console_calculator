@@ -3,10 +3,10 @@
 //-----------------------------INPUT-----------------------------
 void Class::input(std::string str)
 {
-	std::cout << "Enter some numbers with signes in between them(+, -, *, /): ";
+	std::cout << "Enter numbers with signs inbetween them (+, -, *, /): ";
 
 	std::getline(std::cin, str);
-
+	
 	m_String_input = str + " ";
 }
 
@@ -116,16 +116,16 @@ double Class::calculate()
 			break;
 
 		case '-'://Same as the '+' but this time it's '-'
-			if (m_Vector_char.size() > 1 && i < m_Vector_char.size() - 1)
-				if (m_Vector_char.at(i + 1) == '*' || m_Vector_char.at(i + 1) == '/')
+			if (m_Vector_char.size() > 1 && i < m_Vector_char.size() - 1)//It check sto see if '-' is the only sign and if it's not the last sign in the program or not
+				if (m_Vector_char.at(i + 1) == '*' || m_Vector_char.at(i + 1) == '/')//If it is then it checks to see if th next sign is '*' or '/'
 				{
 					flag1 = false;
 					flag2 = false;
-					break;
+					break; //It breaks becouse the * and / come before + or -
 				}
 
 			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
-			if (i == 0)
+			if (i == 0)//If '-' is the first sign in the program...
 			{
 				result = middle_var1 - middle_var2;
 			}
@@ -137,9 +137,9 @@ double Class::calculate()
 
 		case '*'://If 'm_Vector_char' that is being incremented by 'i' is '*' then...
 			middle_var2 = double(m_Vector_int.at(vector_int_index + 1));
-			if (i > 0)
+			if (i > 0)//If '*' is not the first sign in the program..
 			{
-				if (m_Vector_char.at(i - 1) == '/')
+				if (m_Vector_char.at(i - 1) == '/')//If the sign before '*' is '/'...
 				{
 					middle_var4 = middle_var2;
 				}
@@ -151,14 +151,14 @@ double Class::calculate()
 
 			if (i >= 0 && i < m_Vector_char.size() - 1)//...it checks to see if it's the first char in a program or not
 			{
-				if (m_Vector_char.at(i + 1) == '*')
+				if (m_Vector_char.at(i + 1) == '*')//If the next sign is '*'...
 				{
-					while (m_Vector_char.at(j) == '*' && j < m_Vector_char.size() - 1 )
+					while (m_Vector_char.at(j) == '*' && j < m_Vector_char.size() - 1 )//While the sign at j is '*' and it's not the last sign...
 					{
 						
 						if (m_Vector_char.at(j + 1) == '+' || m_Vector_char.at(j + 1) == '-' || m_Vector_char.at(j + 1) == '/')
-							break;
-						else
+							break;//If the next sign is not '*' it breaks
+						else//It * a number to the left and right of the '*'
 						{
 							middle_var2 = double(m_Vector_int.at(j + 2));
 							middle_var4 *= middle_var2;
@@ -169,25 +169,25 @@ double Class::calculate()
 
 				}
 				
-				if (i == 0)
+				if (i == 0)//If '*' is the first sign in the program
 				{
 					result = middle_var4;
 				}
 
-				if (i > 0)
+				if (i > 0)//If '*' is not the first sign in the program
 				{
-					if (j < m_Vector_char.size() - 1)
+					if (j < m_Vector_char.size() - 1)//If '*' is not the last sign in the program
 					{
-						if (m_Vector_char.at(j + 1) != '/')/////////////////////
+						if (m_Vector_char.at(j + 1) != '/')//If the next sign is not '/'
 						{
-							if (m_Vector_char.at(i - 1) == '+')
+							if (m_Vector_char.at(i - 1) == '+')//If the sign before '*' is '+' result is being added by the *
 								result += middle_var4;
 
-							if (m_Vector_char.at(i - 1) == '-')
+							if (m_Vector_char.at(i - 1) == '-')//If the sign before '*' is '-' result is being  by the *
 								result -= middle_var4;
 						}
 
-						else
+						else//If the next sign is not '/' it stores the sign before '*' and middle_var5 with result for further processing
 						{
 							sign = m_Vector_char.at(i - 1);
 							middle_var5 = result;
@@ -204,15 +204,16 @@ double Class::calculate()
 
 					}
 					
-					if (i == 1)
+					if (i == 1)//If '*' is the second sign in the program 
 					{
 						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-						if (j < m_Vector_char.size() - 1)
+						if (j < m_Vector_char.size() - 1)//if j is not at the end
 						{
-							if (m_Vector_char.at(j + 1) != '/')
+							if (m_Vector_char.at(j + 1) != '/')//If the next sign is not '/'
 							{
 								if (m_Vector_char.at(i - 1) == '+')
 									result = middle_var2 + middle_var4;
+
 								if (m_Vector_char.at(i - 1) == '-')
 									result = middle_var2 - middle_var4;
 
@@ -609,11 +610,6 @@ double Class::calculate()
 //-----------------------------OUTPUT-----------------------------
 void Class::output()
 {
-	std::cout << "Numbers: ";
-	for (int i = 0; i < m_Vector_int.size(); i++)
-	{
-		std::cout << m_Vector_int.at(i) << " ";
-	}
 	std::cout << "\n";
-	std::cout << "Calculation: " << calculate();
+	std::cout << "Calculation: " << calculate() << "\n";
 }
