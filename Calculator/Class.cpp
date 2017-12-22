@@ -162,7 +162,6 @@ double Class::calculate()
 						{
 							middle_var2 = double(m_Vector_int.at(j + 2));
 							middle_var4 *= middle_var2;
-							std::cout << middle_var4;
 						}
 						j++;
 					}
@@ -392,7 +391,6 @@ double Class::calculate()
 						{
 							middle_var2 = double(m_Vector_int.at(j + 1));
 							middle_var3 /= middle_var2;
-							std::cout << middle_var3 << " ";
 						}
 						
 						j++;
