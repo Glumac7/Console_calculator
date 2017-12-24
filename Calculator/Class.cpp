@@ -3,7 +3,7 @@
 //-----------------------------INPUT-----------------------------
 void Class::input(std::string str)
 {
-	std::cout << "Enter numbers with signs inbetween them (+, -, *, /): ";
+	std::cout << "Enter numbers with signs and spaces inbetween them (2 + 2): ";
 
 	std::getline(std::cin, str);
 	
@@ -28,6 +28,7 @@ void Class::getSplit_input()
 		if ((m_String_input.at(i) == '+' || m_String_input.at(i) == '-' || m_String_input.at(i) == '*' ||
 			m_String_input.at(i) == '/') && m_String_input.at(i + 1) == ' ')
 		{
+
 			int j = i + 2;
 			while (m_String_input.at(j) != ' ') //'345' goes from 3 to the space after 5
 			{
