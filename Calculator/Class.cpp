@@ -62,7 +62,7 @@ void Class::getSplit_input()
 			m_Vector_int.push_back(end_value); //Pushes the end_value
 			m_Vector_char.push_back(m_String_input.at(i)); //Pushes the sign(+, -, *, /)
 
-														   //Resets the values
+			//Resets the values
 			end_value = 0;
 			middle_value = 0;
 			multiplier = 1;
@@ -204,28 +204,28 @@ double Class::calculate()
 
 					}
 					
-					if (i == 1)//If '*' is the second sign in the program 
+					if (i == 1)//If '*' is the second sign in the program ...
 					{
 						middle_var2 = double(m_Vector_int.at(vector_int_index - 1));
-						if (j < m_Vector_char.size() - 1)//if j is not at the end
+						if (j < m_Vector_char.size() - 1)//if j is not at the end...
 						{
-							if (m_Vector_char.at(j + 1) != '/')//If the next sign is not '/'
+							if (m_Vector_char.at(j + 1) != '/')//If the next sign is not '/'...
 							{
-								if (m_Vector_char.at(i - 1) == '+')
-									result = middle_var2 + middle_var4;
+								if (m_Vector_char.at(i - 1) == '+')//If the sign before '*' is '+'...
+									result = middle_var2 + middle_var4;//The result is the number before '+' and the * after '+'
 
-								if (m_Vector_char.at(i - 1) == '-')
-									result = middle_var2 - middle_var4;
+								if (m_Vector_char.at(i - 1) == '-')//If the sign before '*' is '-'...
+									result = middle_var2 - middle_var4;//The result is the number before '-' and the * after '-'
 
 							}
-							else
+							else//If the next sign is '/'...
 							{
-								sign = m_Vector_char.at(i - 1);
-								middle_var5 = middle_var2;
+								sign = m_Vector_char.at(i - 1);//Puts the sign before '*' into the var sign
+								middle_var5 = middle_var2;//Puts the number before '*' into the var middle_var5
 							}
 						}
 
-						else
+						else//If j is at the end...
 						{
 							if (m_Vector_char.at(i - 1) == '+')
 								result = middle_var2 + middle_var4;
